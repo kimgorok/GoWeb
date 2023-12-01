@@ -5,8 +5,7 @@
 동상색 #E4DCCB
 뽕따색 #A6C4BC */
 
-body {
-}
-
-code {
+* {
+  margin: 0;
+  font-family: Inter;
 }
