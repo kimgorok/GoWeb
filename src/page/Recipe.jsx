@@ -131,24 +131,32 @@ const SubmitButton = styled(CommentDelete)`
 function Recipe() {
   const { categoryId, recipeId } = useParams();
   const navigate = useNavigate();
+  // 카테고리와 레시피 정보를 가져오기
+  // 배열 data에서 id가 categoryId와 일치하는 항목을 가져옴
   const category = data.find((item) => item.id == categoryId);
   // recipeId에서 일의자리만 추출해서 저장
   const lastDigitOfRecipeId = (recipeId % 10) - 1;
+  // 레시피 데이터, 로딩 상태, 댓글 정보 관리
   const [recipe, setRecipe] = useState(null);
   const [loading, setLoading] = useState(true);
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
 
+  // 댓글 정보를 로컬 스토리지에 저장하기 위한 키
   const storageKey = `comments_${categoryId}_${recipeId}`;
 
+  // 레시피 데이터를 비동기적으로 가져오기
   useEffect(() => {
+    // 비 동기적으로 레시피 데이터 가져옴
     const fetchData = async () => {
       try {
+        // 현재 선택된 레시피의 이름을 가져와 API에 전달합니다.
         const response = await fetch(
           `https://www.themealdb.com/api/json/v1/1/search.php?s=${
             category.detail.find((item) => item.id == recipeId).recipe
           }`
         );
+        // API 응답을 JSON으로 파싱한 후, 해당 레시피의 첫 번째 항목을 setRecipe를 통해 상태로 설정
         const data = await response.json();
         setRecipe(data.meals[0]);
         setLoading(false);
@@ -169,6 +177,7 @@ function Recipe() {
     setNewComment(e.target.value);
   };
 
+  // 댓글 추가 함수
   const addComment = () => {
     if (newComment.trim() !== "") {
       const updatedComments = [...comments, newComment];
@@ -178,6 +187,7 @@ function Recipe() {
     }
   };
 
+  // 댓글 삭제 함수
   const deleteComment = (index) => {
     const confirmDelete = window.confirm("댓글을 삭제하시겠습니까?");
     if (confirmDelete) {
@@ -188,11 +198,13 @@ function Recipe() {
     }
   };
 
+  // 로컬 스토리지에서 댓글 정보 가져오기
   useEffect(() => {
     const storedComments = JSON.parse(localStorage.getItem(storageKey)) || [];
     setComments(storedComments);
   }, [storageKey]);
 
+  // 상세 내용 더 보기 기능
   const [displayedLength, setDisplayedLength] = useState(600);
   const [showMore, setShowMore] = useState(true);
 
