@@ -13,7 +13,7 @@ export const Wrapper = styled.div`
   align-content: flex-start;
   gap: 41px;
   flex-wrap: wrap;
-  padding: 30px 0px 100px 0px;
+  padding: 30px 0px 140px 0px;
 `;
 
 const CategoryText = styled.div`

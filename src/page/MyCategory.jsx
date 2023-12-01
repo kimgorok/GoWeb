@@ -96,7 +96,7 @@ function MyCategory() {
 
   return (
     <FoodWrapper>
-      <h1>{category.title}</h1>
+      <h1 style={{ fontWeight: "bold", color: "#808080" }}>{category.title}</h1>
       {category.detail.map((detailItem) => (
         <FoodFrame
           key={detailItem.id}
