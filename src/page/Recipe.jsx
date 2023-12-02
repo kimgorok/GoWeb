@@ -26,6 +26,7 @@ const Loading = styled.div`
   font-size: 5rem;
   font-weight: 700;
   padding-top: 5%;
+  height: 80vh;
 `;
 
 const Wrapper = styled.div`
